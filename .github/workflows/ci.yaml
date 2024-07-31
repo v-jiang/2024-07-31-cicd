@@ -21,6 +21,7 @@ jobs:
     steps: 
       - run: echo "myvar=42" >> GITHUB_ENV
       - run: echo $myvar
+      - run: echo ${{ env.myvar }}
       - uses: actions/checkout@v4
       - name: Install Python
         uses: actions/setup-python@v5
@@ -39,4 +40,4 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps: 
-    - runs: echo "Deploy job"
+    - run: echo "Deploy job"
