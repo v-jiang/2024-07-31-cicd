@@ -1,0 +1,41 @@
+name: Publish PowerPoint to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build PowerPoint
+        run: npm run build
+
+      - name: Upload PowerPoint
+        uses: actions/upload-artifact@v2
+        with:
+          name: powerpoint
+          path: 20240605_sugar_transporter.pptx
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: path/to/your/output/folder
+          publish_branch: gh-pages
+          cname: your-custom-domain.com
+          enable_jekyll: true
+          commit_message: 'Deploy PowerPoint to GitHub Pages'
