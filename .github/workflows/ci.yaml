@@ -19,6 +19,8 @@ jobs:
           python-version: 3.9
     runs-on: ${{ matrix.os }}
     steps: 
+      - run: echo "myvar=42" >> GITHUB_ENV
+      - run: echo $myvar
       - uses: actions/checkout@v4
       - name: Install Python
         uses: actions/setup-python@v5
