@@ -10,8 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-    name: Gets files and publishes to Pages
     steps: 
       - uses: actions/checkout@v4
       - name: Install Python
