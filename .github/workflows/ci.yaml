@@ -13,14 +13,15 @@ jobs:
     strategy:
       matrix: 
         os : [ubuntu-latest, windows-latest]
-        python-version: ["3.8", "3.23"]
+        python-version: ["3.8", "3.12"]
         include:
         - os: macos-14
           python-version: 3.9
     runs-on: ${{ matrix.os }}
     steps: 
-      - run: echo "myvar=42" >> GITHUB_ENV
-      - run: echo $myvar
+      - id: step1
+        run: echo "myvar=42" >> GITHUB_ENV
+      - run: echo "myvar == steps.step1.output.myvar"
       - run: echo ${{ env.myvar }}
       - uses: actions/checkout@v4
       - name: Install Python
@@ -41,3 +42,4 @@ jobs:
     needs: test
     steps: 
     - run: echo "Deploy job"
+    - run: echo "Deploy job $ {{needs.test.steps.step1.output.myvar}}"
